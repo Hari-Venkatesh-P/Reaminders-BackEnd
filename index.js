@@ -6,9 +6,9 @@ const mongoose = require('mongoose')
 
 app.use(cors());
 
-// const configuration = require('./configuration')
+const configuration = require('./Configuration/dbconfig')
 
-// var dbdetails = configuration.dbdetails;
+ var dbdetails = configuration.dbdetails;
 
 
 app.use(bodyparser.json())
@@ -16,11 +16,11 @@ app.use(bodyparser.urlencoded({ extended: true }));
 
 const PORT =  process.env.PORT || 4000;
 
-const PORT =   4000;
+// const PORT =   4000;
 
- const URL = 'mongodb://127.0.0.1:27017/remainders'; 
+//  const URL = 'mongodb://127.0.0.1:27017/remainders'; 
 
-// const URL = 'mongodb+srv://'+dbdetails.username+':'+dbdetails.password+'@'+dbdetails.host+'/'+dbdetails.database+'?retryWrites=true&w=majority';
+ const URL = 'mongodb://'+dbdetails.username+':'+dbdetails.password+'@'+dbdetails.host+':'+dbdetails.port+'/'+dbdetails.database;
 
 mongoose.connect(URL, {useNewUrlParser : true},(err) => {
     if (err) {
