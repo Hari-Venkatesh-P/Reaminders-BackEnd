@@ -1,5 +1,5 @@
 const Users = require('../Models/Users')
-const logger = require('../Library/logger')
+const logger = require('../Library/Logger')
 
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');

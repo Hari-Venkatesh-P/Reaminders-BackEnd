@@ -2,7 +2,7 @@ const Remainder = require('../Models/Remainder')
 const mongoose = require('mongoose')
 
 
-const logger = require('../Library/logger')
+const logger = require('../Library/Logger')
 
 async function addRemainder(req,res){
     const { userId, title, description, date, priority} = req.body
