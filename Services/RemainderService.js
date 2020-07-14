@@ -204,7 +204,7 @@ async function getRemaindersByUserId(req,res)
                                 message: 'User not found'
                             })
                 }else{
-                    Remainder.find({userId:userId},async function (err, userremainderdocs){
+                    Remainder.findOne({userId:userId},async function (err, userremainderdocs){
                         if(err){
                             logger.error(err)
                             res.status(502).send({
