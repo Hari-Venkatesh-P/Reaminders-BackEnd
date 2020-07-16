@@ -14,13 +14,13 @@ const configuration = require('./Configuration/dbconfig')
 app.use(bodyparser.json())
 app.use(bodyparser.urlencoded({ extended: true }));
 
-// const PORT =  process.env.PORT || 4000;
+const PORT =  process.env.PORT || 4000;
 
-const PORT =   4000;
+// const PORT =   4000;
 
- const URL = 'mongodb://127.0.0.1:27017/remainders'; 
+//  const URL = 'mongodb://127.0.0.1:27017/remainders'; 
 
-//  const URL = 'mongodb://'+dbdetails.username+':'+dbdetails.password+'@'+dbdetails.host+':'+dbdetails.port+'/'+dbdetails.database;
+ const URL = 'mongodb://'+dbdetails.username+':'+dbdetails.password+'@'+dbdetails.host+':'+dbdetails.port+'/'+dbdetails.database;
 
 mongoose.connect(URL, {useNewUrlParser : true},(err) => {
     if (err) {
