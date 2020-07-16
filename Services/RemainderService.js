@@ -27,6 +27,7 @@ async function addRemainder(req,res){
                     const newRemainder = new Remainder({
                         userId : userId,
                         remainders:temp,
+                        createdAt:new Date(),
                      })
                      newRemainder.save((err,savedocs)=>{
                         if(err){
@@ -36,10 +37,10 @@ async function addRemainder(req,res){
                                 message: 'DB Error'
                             })
                         }else{
-                            logger.info('Remainder created successfully for user    '+userId)
+                            logger.info('Reminder created successfully for user    '+userId)
                                 res.status(200).send({
                                     success: true,
-                                    message: 'First Remainder created successfully'
+                                    message: 'First Reminder created successfully'
                             })
                         }
                      })
@@ -52,13 +53,13 @@ async function addRemainder(req,res){
                                 message: 'DB Error'
                             })
                         }else if(remaindersdocs!==null){
-                            logger.warn("Task for the User Already exits")
+                            logger.warn("reminder for the User Already exits")
                             res.status(201).send({
                                 success: false,
-                                message: 'Attempting duplicate remainder entry.'
+                                message: 'Attempting duplicate reminder entry.'
                             })
                         }else{
-                            docs.remainders.push({title: title,description: description,date: date,priority: priority});
+                            docs.remainders.push({title: title,description: description,date: date,priority: priority,createdAt:new Date});
                             await docs.save((err,saveddocs)=>{
                                 if(err){
                                     logger.error(err)
@@ -67,10 +68,10 @@ async function addRemainder(req,res){
                                         message: 'DB Error'
                                     })
                                 }else{
-                                    logger.info('Remainder created successfully for user'+userId)
+                                    logger.info('Reminder created successfully for user'+userId)
                                     res.status(200).send({
                                         success: true,
-                                        message: 'Remainder created successfully'
+                                        message: 'Reminder created successfully'
                                     })
                                 }
                             })
@@ -107,16 +108,16 @@ async function deleteRemainder(req, res) {
                         message: 'DB Error'
                     })
                 }else if(docs.nModified===0){
-                    logger.warn("No such remainder found")
+                    logger.warn("No such reminder found")
                             res.status(201).send({
                                 success: false,
-                                message: 'No such remainder found'
+                                message: 'No such reminder found'
                             })
                 }else{
-                    logger.info('Remainder deleted successfullyy')
+                    logger.info('Reminder deleted successfullyy')
                     res.status(200).send({
                         success: true,
-                        message: 'Remainder deleted successfullyy'
+                        message: 'Reminder deleted successfullyy'
                     })
                 }
             })
@@ -156,16 +157,16 @@ async function updateRemainder(req,res)
                         message: 'DB Error'
                     })
                   }else if(updatedocs.nModified===0){
-                    logger.warn("No such remainder found")
+                    logger.warn("No update made to the reminder")
                             res.status(201).send({
                                 success: false,
-                                message: 'No such remainder found'
+                                message: 'No update made to the reminder'
                             })
-                }else{
-                    logger.info('Remainder updated successfully for user'+userId)
+                }else if(updatedocs.nModified===1){
+                    logger.info('Reminder updated successfully for user'+userId)
                     res.status(200).send({
                         success: true,
-                        message: 'Remainder updated successfully'
+                        message: 'Reminder updated successfully'
                     })
                   }
                 });
@@ -212,7 +213,7 @@ async function getRemaindersByUserId(req,res)
                                 message: 'DB Error'
                             })
                           }else{
-                            logger.info("User's remainders fetched successfully")
+                            logger.info("User's reminders fetched successfully")
                                     res.status(200).send({
                                         success: true,
                                         message: userremainderdocs

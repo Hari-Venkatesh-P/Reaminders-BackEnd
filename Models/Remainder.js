@@ -16,6 +16,10 @@ const RemainderSchema = mongoose.Schema({
           },
           priority: {
               type: String,
+          },
+          createdAt : {
+              type: Date,
+              default:new Date(),
           }
     }]
   })
