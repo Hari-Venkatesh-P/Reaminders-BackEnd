@@ -3,6 +3,7 @@ const app = express()
 const cors = require('cors')
 const bodyparser = require('body-parser')
 const mongoose = require('mongoose')
+const path = require('path');
 
 app.use(cors());
 
@@ -33,7 +34,8 @@ mongoose.connect(URL, {useNewUrlParser : true},(err) => {
 
 
 app.get('/',function(req,res){
-    res.send("Welcome to  Remainder services")
+    res.sendFile(path.join(__dirname+'/index.html'));
+    console.log("Welcome to  Reminders backend-services")
 })
 
 

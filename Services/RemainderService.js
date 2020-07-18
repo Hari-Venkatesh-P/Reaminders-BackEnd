@@ -199,10 +199,10 @@ async function getRemaindersByUserId(req,res)
                         message: 'DB Error'
                     })
                   }else if(userdocs==null){
-                    logger.warn("User not  found")
+                    logger.warn("No Reminders found for this User")
                             res.status(201).send({
                                 success: false,
-                                message: 'User not found'
+                                message: 'No Reminders found for this User'
                             })
                 }else{
                     Remainder.findOne({userId:userId},async function (err, userremainderdocs){
@@ -214,9 +214,14 @@ async function getRemaindersByUserId(req,res)
                             })
                           }else{
                             logger.info("User's reminders fetched successfully")
+                                    var responseBody = {
+                                        _id:userremainderdocs._id,
+                                        userId:userId,
+                                        remainders:userremainderdocs.remainders.sort((a, b) => (a.createdAt > b.createdAt) ? -1 : 1)
+                                    }
                                     res.status(200).send({
                                         success: true,
-                                        message: userremainderdocs
+                                        message: responseBody
                                 })
                         }
                     })
